@@ -16,4 +16,3 @@ export default class mySelecion extends HTMLElement{
     }
 }
 
-customElements.define(name, mySelecion);
