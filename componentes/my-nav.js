@@ -8,12 +8,28 @@ export default class myNav extends HTMLElement{
 
     constructor(){
         super();
-        this.attachShadow({mode:"open"});
-        Promise.resolve(myNav.componentes()).then(html=>{
+        this.attachShadow({mode: "open"});
+    }
+    handleEvent(e){
+        (e.type === "click") ? this.sendMessage(e): undefined;
+    }
+
+    sendMessage(e){
+        e.preventDefault();   
+        alert("Boton section")    
+    }
+
+    connectedCallback(){
+        Promise.resolve(myNav.componentes())
+        .then(html =>{
             this.shadowRoot.innerHTML = html;
-        })
-        console.log("etiqueta rendirizada y configurada :)");
+            this.myNav = this.shadowRoot.querySelector("#boton");
+            this.myNav.addEventListener("click", this.handleEvent.bind(this))  
+        });
+        console.log("Etiqueta Section");        
+        console.log("Etiqueta section"); 
     }
 }
+
 
 customElements.define(name, myNav);

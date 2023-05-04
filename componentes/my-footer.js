@@ -8,12 +8,28 @@ export default class myFooter extends HTMLElement{
 
     constructor(){
         super();
-        this.attachShadow({mode:"open"});
-        Promise.resolve(myFooter .componentes()).then(html=>{
+        this.attachShadow({mode: "open"});
+    }
+    handleEvent(e){
+        (e.type === "click") ? this.sendMessage(e): undefined;
+    }
+
+    sendMessage(e){
+        e.preventDefault();   
+        alert("Boton section")    
+    }
+
+    connectedCallback(){
+        Promise.resolve(myFooter.componentes())
+        .then(html =>{
             this.shadowRoot.innerHTML = html;
-        })
-        console.log("etiqueta rendirizada y configurada :)");
+            this.myFooter = this.shadowRoot.querySelector("#boton");
+            this.myFooter.addEventListener("click", this.handleEvent.bind(this))  
+        });
+        console.log("Etiqueta Section");        
+        console.log("Etiqueta section"); 
     }
 }
+
 
 customElements.define(name, myFooter );

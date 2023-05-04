@@ -9,11 +9,27 @@ export default class myTabla extends HTMLElement{
     constructor(){
         super();
         this.attachShadow({mode:"open"});
-        Promise.resolve(myTabla.componentes()).then(html=>{
+    }
+     handleEvent(e){
+        (e.type === "click") ? this.sendMessage(e): undefined;
+    }
+
+    sendMessage(e){
+        e.preventDefault();   
+        alert("Boton section")    
+    }
+
+    connectedCallback(){
+        Promise.resolve(myTabla.componentes())
+        .then(html =>{
             this.shadowRoot.innerHTML = html;
-        })
-        console.log("etiqueta rendirizada y configurada :)");
+            this.myTabla = this.shadowRoot.querySelector("#boton");
+            this.myTabla.addEventListener("click", this.handleEvent.bind(this))  
+        });
+        console.log("Etiqueta Section");        
+        console.log("Etiqueta section"); 
     }
 }
+
 
 customElements.define(name, myTabla);
